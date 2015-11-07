@@ -1,10 +1,3 @@
-# Overview
-Golang lightweight log component, support level control, file log...
-
-Getting Started
----------------
-
-```go
 package main
 
 import (
@@ -23,34 +16,3 @@ func main() {
 	log.E("eTag", "hello", "kuloud")
 	log.Ef("efTag", "%s, just like you said.")
 }
-
-```
-
-
-Installation and Upgrade
-------------------------
-
-```
-$ go get -u github.com/Kuloud/Klog
-```
-
-History
--------
-
-v1.0.0, 7 Nov 2015
-------------------
-* Initial release
-** Level contorl
-** File log
-
-
-License
--------
-
-Apache License Version 2.0. See [LICENSE](https://github.com/Kuloud/Klog/blob/master/LICENSE) file for details.
-
-
-ToDo
-----
-* Load configuration by profile, such as xml/properties... Fix log file recreate each time.
-

@@ -15,7 +15,7 @@ const (
 	INFO
 	WARN
 	ERROR
-	level        = VERBOSE
+	level        = LOG_LEVEL
 	LOG_FORMAT   = "[%s]:[%s]"
 	LOG_FORMAT_F = "[%s]:[%s] %s\n"
 )
@@ -23,7 +23,7 @@ const (
 var (
 	levelStrings    = []string{"V", "D", "I", "W", "E"}
 	LogBufferLength = 32
-	fileLogger      = NewFileLogWriter("testlog")
+	fileLogger      = NewFileLogWriter(FILE_LOG_PATH)
 )
 
 /**
