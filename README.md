@@ -25,6 +25,24 @@ func main() {
 }
 
 ```
+Custom the config in config.go
+
+run the example:
+```
+go run example.go
+```
+
+You will get like this
+```
+2015/11/07 23:35:07 [D]:[dTag] hello kuloud
+2015/11/07 23:35:07 [D]:[dfTag] hello, just like kuloud said. 1
+2015/11/07 23:35:07 [I]:[iTag] hello kuloud
+2015/11/07 23:35:07 [I]:[ifTag] hello, just like kuloud said. true
+2015/11/07 23:35:07 [W]:[wTag] hello kuloud
+2015/11/07 23:35:07 [W]:[wfTag] hello, just like kuloud said. Debug
+2015/11/07 23:35:07 [E]:[eTag] hello kuloud
+2015/11/07 23:35:07 [E]:[efTag] %!s(MISSING), just like you said.
+```
 
 
 Installation and Upgrade
