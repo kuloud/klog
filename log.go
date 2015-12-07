@@ -1,113 +1,125 @@
 package klog
 
 import (
-    "fmt"
-    stdLog "log"
-    "strings"
-    "time"
+	"fmt"
+	stdLog "log"
+	"strings"
+	"time"
 )
 
+// Level of debug
 type Level int32
 
+/**
+ * Define log levels and formats
+ */
 const (
-    VERBOSE Level = iota
-    DEBUG
-    INFO
-    WARN
-    ERROR
-    level        = LOG_LEVEL
-    LOG_FORMAT   = "[%s]:[%s]"
-    LOG_FORMAT_F = "[%s]:[%s] %s\n"
+	Verbose Level = iota
+	Debug
+	Info
+	Warn
+	Error
+	level      = LogLevel
+	LogFormat  = "[%s]:[%s]"
+	LogFormatF = "[%s]:[%s] %s\n"
 )
 
 var (
-    levelStrings    = []string{"V", "D", "I", "W", "E"}
-    LogBufferLength = 32
-    fileLogger      = NewFileLogWriter(FILE_LOG_PATH)
+	levelStrings = []string{"V", "D", "I", "W", "E"}
+	// LogBufferLength buffer size of log message
+	LogBufferLength = 32
+	fileLogger      = NewFileLogWriter(FileLogPath)
 )
 
-/**
- */
+// LogRecord log message struct
 type LogRecord struct {
-    Created time.Time // The time at which the log message created
-    Message string    // The log message
+	Created time.Time // The time at which the log message created
+	Message string    // The log message
 }
 
-/**
- * This is an interface for anything that should be able to write logs
- */
+// LogWriter is an interface for anything that should be able to write logs
 type LogWriter interface {
-    LogWrite(rec *LogRecord)
-    Close()
+	LogWrite(rec *LogRecord)
+	Close()
 }
 
+// V Verbose log
 func V(tag string, args ...interface{}) {
-    if level <= VERBOSE {
-        log(VERBOSE, tag, args...)
-    }
+	if level <= Verbose {
+		log(Verbose, tag, args...)
+	}
 }
 
+// Vf Verbose formatted log
 func Vf(tag string, format string, args ...interface{}) {
-    if level <= VERBOSE {
-        logf(VERBOSE, tag, format, args...)
-    }
+	if level <= Verbose {
+		logf(Verbose, tag, format, args...)
+	}
 }
 
+// D Debug log
 func D(tag string, args ...interface{}) {
-    if level <= DEBUG {
-        log(DEBUG, tag, args...)
-    }
+	if level <= Debug {
+		log(Debug, tag, args...)
+	}
 }
 
+// Df Debug formatted log
 func Df(tag string, format string, args ...interface{}) {
-    if level <= DEBUG {
-        logf(DEBUG, tag, format, args...)
-    }
+	if level <= Debug {
+		logf(Debug, tag, format, args...)
+	}
 }
 
+// I Info log
 func I(tag string, args ...interface{}) {
-    if level <= INFO {
-        log(INFO, tag, args...)
-    }
+	if level <= Info {
+		log(Info, tag, args...)
+	}
 }
 
+// If Info formatted log
 func If(tag string, format string, args ...interface{}) {
-    if level <= INFO {
-        logf(INFO, tag, format, args...)
-    }
+	if level <= Info {
+		logf(Info, tag, format, args...)
+	}
 }
 
+// W Warn log
 func W(tag string, args ...interface{}) {
-    if level <= WARN {
-        log(WARN, tag, args...)
-    }
+	if level <= Warn {
+		log(Warn, tag, args...)
+	}
 }
 
+// Wf Warn formatted log
 func Wf(tag string, format string, args ...interface{}) {
-    if level <= WARN {
-        logf(WARN, tag, format, args...)
-    }
+	if level <= Warn {
+		logf(Warn, tag, format, args...)
+	}
 }
 
+// E Error log
 func E(tag string, args ...interface{}) {
-    if level <= ERROR {
-        log(ERROR, tag, args...)
-    }
+	if level <= Error {
+		log(Error, tag, args...)
+	}
 }
 
+// Ef Error formatted log
 func Ef(tag string, format string, args ...interface{}) {
-    if level <= ERROR {
-        logf(ERROR, tag, format, args...)
-    }
+	if level <= Error {
+		logf(Error, tag, format, args...)
+	}
 }
 
 func log(level Level, tag string, args ...interface{}) {
-    format := fmt.Sprintf(LOG_FORMAT, levelStrings[level], tag)
-    msg := fmt.Sprintf(format+strings.Repeat(" %v", len(args))+"\n", args...)
-    stdLog.Printf(msg)
-    if FILE_LOG_ENABLE {
-        fileLogger.LogWrite(&LogRecord{Created: time.Now(), Message: msg})
-    }
+	format := fmt.Sprintf(LogFormat, levelStrings[level], tag)
+	msg := fmt.Sprintf(format+strings.Repeat(" %v", len(args))+"\n", args...)
+	stdLog.Printf(msg)
+	if FileLogEnable {
+		fileLogger.LogWrite(&LogRecord{Created: time.Now(), Message: msg})
+	}
 
 }
 
@@ -115,11 +127,11 @@ func log(level Level, tag string, args ...interface{}) {
  * Log with custom msg format
  */
 func logf(level Level, tag string, format string, args ...interface{}) {
-    content := fmt.Sprintf(format, args...)
-    msg := fmt.Sprintf(LOG_FORMAT_F, levelStrings[level], tag, content)
-    stdLog.Print(msg)
-    if FILE_LOG_ENABLE {
-        fileLogger.LogWrite(&LogRecord{Created: time.Now(), Message: msg})
-    }
+	content := fmt.Sprintf(format, args...)
+	msg := fmt.Sprintf(LogFormatF, levelStrings[level], tag, content)
+	stdLog.Print(msg)
+	if FileLogEnable {
+		fileLogger.LogWrite(&LogRecord{Created: time.Now(), Message: msg})
+	}
 
 }
