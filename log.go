@@ -113,6 +113,13 @@ func Ef(tag string, format string, args ...interface{}) {
 	}
 }
 
+// FlushFileLog flush logs to file
+func FlushFileLog() {
+	if FileLogEnable {
+		fileLogger.Rotate()
+	}
+}
+
 func log(level Level, tag string, args ...interface{}) {
 	format := fmt.Sprintf(LogFormat, levelStrings[level], tag)
 	msg := fmt.Sprintf(format+strings.Repeat(" %v", len(args))+"\n", args...)

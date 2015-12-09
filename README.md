@@ -8,7 +8,7 @@ Getting Started
 package main
 
 import (
-	log "github.com/Kuloud/Klog"
+	log "github.com/kuloud/klog"
 )
 
 func main() {
@@ -71,4 +71,3 @@ Apache License Version 2.0. See [LICENSE](https://github.com/Kuloud/Klog/blob/ma
 ToDo
 ----
 * Load configuration by profile, such as xml/properties... Fix log file recreate each time.
-
